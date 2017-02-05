@@ -199,3 +199,33 @@ public class Cryptojava {
 	    public static int StringToInt(String s){
 	    	return Integer.parseInt(s, 2);
 	    }
+
+
+	    /* permutation function. */
+	    
+	    public static int permute (int b, int [] permutation){
+	    	int bTemp=0;
+	    	int length=permutation.length;
+	    	for (int i=0;i<length;i++){
+	    		bTemp=setBit(bTemp,i,getBit(b,permutation[i]));
+	    	}
+	    return bTemp;
+	    
+	    }
+	    
+	    /* gets a row of s-box for a 6 bit int b*/
+	    private static int getRow(int b){
+	    	int b0=getBit(b,0);
+	    	int b5=getBit(b,5);
+	    	return StringToInt(intToString(b5,1)+intToString(b0,1));
+	    }
+	    
+	    
+	    private static int getCol(int b){
+	    	int b1=getBit(b,1);
+	    	int b2=getBit(b,2);
+	    	int b3=getBit(b,3);
+	    	int b4=getBit(b,4);
+	    	return StringToInt(intToString(b4,1)+intToString(b3,1)+intToString(b2,1)+intToString(b1,1));
+	    	
+	    }
