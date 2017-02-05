@@ -170,3 +170,19 @@ public class Cryptojava {
 	    public static final byte[] rotations = {
 	        1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1
 	    };
+
+	    ========
+	    
+	    public static int setBit(int b, int pos, int val){
+	    	if (val==1) b=(b | (1<<pos));
+	    	else if (val==0) b=(b & ~(1<<pos));
+	    	return b;
+	    } 
+	    
+	    /*gettin a bit fromposition pos */
+	    
+	    public static int getBit(int b, int pos){
+	    	if(((b>>pos)&1)==1)
+	    		return 1; else return 0;
+	    }
+	    
