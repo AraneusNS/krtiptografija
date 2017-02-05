@@ -229,3 +229,11 @@ public class Cryptojava {
 	    	return StringToInt(intToString(b4,1)+intToString(b3,1)+intToString(b2,1)+intToString(b1,1));
 	    	
 	    }
+
+	    public static int sBox(int sbox, int b){
+	    	int row=getRow(b);
+	    	//System.out.println("row="+row);
+	    	int col=getCol(b);
+	    	return S[sbox][row*S_WIDTH+col];
+	    }
+	}
