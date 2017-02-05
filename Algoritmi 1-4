@@ -1,0 +1,111 @@
+package test1;
+
+import static edu.tfzr.des.Cryptojava.StringToInt;
+import static edu.tfzr.des.Cryptojava.getBit;
+import static edu.tfzr.des.Cryptojava.intToString;
+import static edu.tfzr.des.Cryptojava.permute;
+import static edu.tfzr.des.Cryptojava.sBox;
+
+import edu.tfzr.des.Cryptojava;
+import edu.tfzr.des.CryptoOperations;
+import edu.tfzr.des.CryptoStat;
+
+
+
+public class app1 {
+
+	public static void main(String[] args) {
+		
+   //definica permutacija 
+		int[] ip = new int[]{7,2,1,5,4,3,6,0};//8 to 8
+		int[] pc = new int[]{4,2,7,3,5,1};//8 to 6
+		int[] pe = new int[]{2,1,0,1,3,2,0,3};//4 to 8
+		int[] e6 = new int[]{2,3,2,1,0,3};//4 to 6
+		int[] fp = new int[]{4,2,7,5,1,3,0,6};//8 to 8
+		int[] pr = new int[]{3,2,1,0};//8 to 4
+		int[] pl = new int[]{5,4,6,7};//8 to 4
+		//zadatak1
+		
+		System.out.println();
+		System.out.println("Zadatak 1");
+		String bs="010010";
+		int b=Cryptojava.StringToInt(bs);
+		for(int i=0;i<8;i++)
+			System.out.println(sBox(i,b));
+		
+	////////////////////////////////////////////
+		//ZADACI ZA KOLOKVIJUM
+		
+		//zad1kolokvijum
+			System.out.println();
+			System.out.println("Zadatak 1 kol");
+			String plaintext="10100110";
+			String skey= "10110101";
+			int p=StringToInt(plaintext);
+			int k=StringToInt(skey);
+			int xor1=permute(p^k,ip);
+			int ppc1=permute(xor1,pc);
+			int ss1=sBox(3,ppc1);
+			int ppe1=permute(ss1,pe);
+			System.out.println(ppe1);
+		
+			//DRUGI NACIN 
+			int out=permute(sBox(3,permute(permute(p^k,ip),pc)),pe);
+			System.out.println(out);
+		
+		//zad2kol
+				System.out.println();
+				System.out.println("Zadatak 2 kol");
+				String plaintext1="10111010";
+				String skey1= "01110100";
+				int p1=StringToInt(plaintext1);
+				int k1=StringToInt(skey1);
+				int xor=permute(p1^k1,ip);
+				int ppc=permute(xor,pc);
+				int ss=sBox(6,ppc);
+				int ppe=permute(ss,pe);
+				int ffp=permute(ppe,fp);
+				System.out.println(ffp);
+				
+				//DRUGI NACIN 
+				int out1=permute(permute(sBox(6,permute(permute(p1^k1,ip),pc)),pe),fp);
+				System.out.println(out1);
+				
+				//zad3kol
+				System.out.println();
+				System.out.println("Zadatak 3 kol");
+				String plaintext2="11001101";
+				String skey2= "01011101";
+				int p2=StringToInt(plaintext2);
+				int k2=StringToInt(skey2);
+				int p2ip=permute(p2,ip);
+				int k2ip=permute(k2,ip);
+				int xorPc=permute(p2ip^k2ip,pc);
+				int s=sBox(2,xorPc);
+				int n=permute(s,pe);
+				System.out.println(n);
+				
+				
+				// DRUGI NACIN
+				
+				int out2=permute(sBox(2,permute(p2ip^k2ip,pc)),pe); 
+				System.out.println(out2);
+				
+				
+				//zad4kol
+				System.out.println();
+				System.out.println("Zadatak 4 kol");
+				String plaintext3="11001101";
+				String skey3= "01011101";
+				int p3=StringToInt(plaintext3);
+				int k3=StringToInt(skey3);
+				int p3ip=permute(p3,ip);
+				int pcp3=permute(p3ip,pc);
+				int s3p=sBox(7,pcp3);
+				
+				int k3ip=permute(k3,ip);
+				int pck3=permute(k3ip,pc);
+				int s3k=sBox(6,pck3);
+				
+				int xor3=permute(s3p^s3k,pe);
+				System.out.println(xor3);
