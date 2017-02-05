@@ -171,7 +171,7 @@ public class Cryptojava {
 	        1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1
 	    };
 
-	    ========
+=============================================================================================
 	    
 	    public static int setBit(int b, int pos, int val){
 	    	if (val==1) b=(b | (1<<pos));
@@ -186,3 +186,16 @@ public class Cryptojava {
 	    		return 1; else return 0;
 	    }
 	    
+	    
+	    /*converts an integer value to the string presentation but in a form of binary sting. Parameter length is here for padding
+	     * so that aditional zeroes will be padded to the begining of the binary string, if needed*/
+	    
+	    public static String intToString(int b, int length){
+	    	return String.format("%"+length+"s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
+	    }
+	    
+	    /* converting string to an integer*/
+	    
+	    public static int StringToInt(String s){
+	    	return Integer.parseInt(s, 2);
+	    }
