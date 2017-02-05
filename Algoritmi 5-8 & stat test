@@ -1,0 +1,101 @@
+package test1;
+
+import static edu.tfzr.des.Cryptojava.StringToInt;
+import static edu.tfzr.des.Cryptojava.getBit;
+import static edu.tfzr.des.Cryptojava.intToString;
+import static edu.tfzr.des.Cryptojava.permute;
+import static edu.tfzr.des.Cryptojava.sBox;
+
+import edu.tfzr.des.Cryptojava;
+import edu.tfzr.des.CryptoOperations;
+import edu.tfzr.des.CryptoStat;
+
+
+
+public class app1 {
+
+	public static void main(String[] args) {
+		
+   //definica permutacija 
+		int[] ip = new int[]{7,2,1,5,4,3,6,0};//8 to 8
+		int[] pc = new int[]{4,2,7,3,5,1};//8 to 6
+		int[] pe = new int[]{2,1,0,1,3,2,0,3};//4 to 8
+		int[] e6 = new int[]{2,3,2,1,0,3};//4 to 6
+		int[] fp = new int[]{4,2,7,5,1,3,0,6};//8 to 8
+		int[] pr = new int[]{3,2,1,0};//8 to 4
+		int[] pl = new int[]{5,4,6,7};//8 to 4
+		//zadatak1
+		
+		System.out.println();
+		System.out.println("Zadatak 1");
+		String bs="010010";
+		int b=Cryptojava.StringToInt(bs);
+		for(int i=0;i<8;i++)
+			System.out.println(sBox(i,b));
+		
+    				//zad5kol
+				System.out.println();
+				System.out.println("Zadatak 5 kol");
+				String plaintext4="10111000";
+				String skey4= "01011101";
+				int p4=StringToInt(plaintext4);
+				int k4=StringToInt(skey4);
+				int p4ip=permute(p4,ip);
+				int k4ip=permute(k4,ip);
+				int xor4pc=permute(p4ip^k4ip,pc);
+				int s4=sBox(4,xor4pc);
+				int pe4=permute(s4,pe);
+				System.out.println(pe4);
+				
+				String sout5=intToString(pe4,8);
+				System.out.println(sout5);
+				
+				CryptoStat cs= new CryptoStat(sout5);
+				if(cs.stat1()) System.out.println("Prolazi Stat 1");
+				else System.out.println("Ne Prolazi Stat 1");
+			
+				
+				
+				//zad8kol
+				
+				System.out.println();
+				System.out.println("Zadatak 9 kol");
+				String plaintext9="10111000";
+				String skey9="00101011";
+				int p9=StringToInt(plaintext9);
+				int k9=StringToInt(skey9);
+				//leva strana
+				int pl9plain=permute(p9,pl);
+				int finalleft=permute(pl9plain,pe);
+				System.out.println(finalleft);
+				
+				//desna strana
+				int pl9key=permute(k9,pl);
+				int e6pl=permute(pl9key,e6);
+				int sb=sBox(2,e6pl);
+				int finalright=permute(sb,pe);
+				System.out.println(finalright);
+				//drugi nacin
+				int finright=permute(sBox(2,permute(permute(k9,pl),e6)),pe);
+				System.out.println(finright);
+				
+				//stat
+				
+				int pr9plain=permute(p9,pr);
+				int pr9key=permute(k9,pr);
+				int xor9=pr9plain^pr9key;
+				int pexor9=permute(xor9,pe);
+				System.out.println(pexor9);
+				
+				
+				String sout9=intToString(pexor9,8);
+				System.out.println(sout9);
+				
+				CryptoStat cs9= new CryptoStat(sout9);
+				if(cs9.stat2()) System.out.println("Prolazi Stat 2");
+				else System.out.println("Ne Prolazi Stat 2");
+				
+					
+	}
+
+}
